@@ -13,7 +13,6 @@ app.service('UserService', function (FIREBASE_URL,
 
 		/*
 		 Makes sure the favorites property is preset on the current user.
-
 		 firebase REMOVES any empty properties on a save. So we can't
 		 bootstrap the user object with favorites: {}.
 		 */
@@ -30,9 +29,9 @@ app.service('UserService', function (FIREBASE_URL,
 			// Toggles the favorite setting for a show for the current user.
 			self.ensureFavorite();
 			if (self.current.favorites[show.showid]) {
-				self.removeFavorite(show)
+				self.removeFavorite(show);
 			} else {
-				self.addFavorite(show)
+				self.addFavorite(show);
 			}
 			self.current.$save();
 		},
@@ -77,7 +76,6 @@ app.service('UserService', function (FIREBASE_URL,
 			} else {
 				d.resolve();
 			}
-
 			*/
 			return d.promise;
 		},
@@ -94,11 +92,11 @@ app.service('UserService', function (FIREBASE_URL,
 		loginUser: function () {
 			var d = $q.defer();
 
-			self.loadUser().then(function (user) {
-				if (user) {
-					d.resolve(self.current);
-				}
-				else {
+			// self.loadUser().then(function (user) {
+				// if (user) {
+				// 	// d.resolve(self.current);
+				// }
+				// else {
 
 					//
 					// Initiate the facebook login process
@@ -126,8 +124,6 @@ app.service('UserService', function (FIREBASE_URL,
 										// We got details of the current user now authenticate via firebase
 										//
 										console.log('Authenticating with firebase');
-
-
 										var auth = $firebaseAuth(ref);
 										auth.$authWithOAuthToken("facebook", token)
 											.then(function (authData) {
@@ -183,7 +179,6 @@ app.service('UserService', function (FIREBASE_URL,
 												});
 												d.reject(error);
 											});
-
 									},
 									error: function (error) {
 										console.error('Facebook error: ' + error.error_description);
@@ -215,11 +210,12 @@ app.service('UserService', function (FIREBASE_URL,
 						{
 							scope: 'email' // Comma separated list of permissions to request from facebook
 						});
-				}
-			});
-			return d.promise;
-		}
-	};
+				// }
+	// 		// });
+	// 		return d.promise;
+  }
+  };
+	// };
 
 	self.loadUser();
 
